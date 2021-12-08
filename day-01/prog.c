@@ -19,18 +19,19 @@ int main(int argc, char* argv[argc + 1]) {
 	size_t countA = 0;
 	size_t countB = -1;
 
-	int i = 1;
+	int i = 2;
 	int ret = fscanf(fp, "%d", &arr[0]);
 	if (ret != EOF) ret = fscanf(fp, "%d", &arr[1]);
 
+	if (arr[1] > arr[0]) countA++;
+
+	ret = fscanf(fp, "%d", &arr[2]);
 	while (ret != EOF) {
 		if (arr[i] > arr[i - 1]) countA++;
 
-		if (i > 1) {
-			sum = arr[i] + arr[i - 1] + arr[i - 2];
-			if (sum > psum) countB++;
-			psum = sum;
-		}
+		sum = arr[i] + arr[i - 1] + arr[i - 2];
+		if (sum > psum) countB++;
+		psum = sum;
 
 		i++;
 		ret = fscanf(fp, "%d", &arr[i]);
