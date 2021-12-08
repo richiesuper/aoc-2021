@@ -12,16 +12,28 @@ int main(int argc, char* argv[argc + 1]) {
 		return -2;
 	}
 
-	int val;
-	int temp;
-	size_t count = 0;
+	int arr[2000];
+	int psum = 0;
+	int sum;
 
-	int ret = fscanf(fp, "%d", &val);
+	size_t countA = 0;
+	size_t countB = -1;
+
+	int i = 1;
+	int ret = fscanf(fp, "%d", &arr[0]);
+	if (ret != EOF) ret = fscanf(fp, "%d", &arr[1]);
+
 	while (ret != EOF) {
-		temp = val;
-		ret = fscanf(fp, "%d", &val);
+		if (arr[i] > arr[i - 1]) countA++;
 
-		if (val > temp) count++;
+		if (i > 1) {
+			sum = arr[i] + arr[i - 1] + arr[i - 2];
+			if (sum > psum) countB++;
+			psum = sum;
+		}
+
+		i++;
+		ret = fscanf(fp, "%d", &arr[i]);
 	}
 
 	fclose(fp);
@@ -32,7 +44,7 @@ int main(int argc, char* argv[argc + 1]) {
 		return -3;
 	}
 
-	fprintf(fp, "%zu\n", count);
+	fprintf(fp, "Answer for 1st part:\n%zu\n\nAnswer for 2nd part:\n%zu\n", countA, countB);
 	fclose(fp);
 
 	return 0;
